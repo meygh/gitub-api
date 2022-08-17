@@ -56,9 +56,19 @@ class Kernel extends Singleton
      * Returns configuration array.
      * @return array
      */
-    public function getConfig(): array
+    public function getConfigs(): array
     {
         return $this->config;
+    }
+
+    /**
+     * Returns a specific configuration by its key.
+     * @param string $key
+     * @return mixed|null
+     */
+    public function getConfig(string $key)
+    {
+        return array_get($this->config, $key);
     }
 
     /**
@@ -133,7 +143,7 @@ class Kernel extends Singleton
      */
     protected function loadConfigurations()
     {
-        if (!$this->getConfig()) {
+        if (!$this->getConfigs()) {
             if (!$this->configFilePath) {
                 $this->configFilePath = APP_DIR;
 

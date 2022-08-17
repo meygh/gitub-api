@@ -6,4 +6,10 @@
  * Time: 11:51 PM
  */
 
-return [];
+return [
+    'token' => '',
+
+    'commands' => [
+        '\\Meygh\GithubApi\\App\\commands\\ListRepositories'
+    ]
+];

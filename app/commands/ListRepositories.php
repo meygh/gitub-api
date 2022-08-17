@@ -6,19 +6,20 @@
  * Time: 12:28 AM
  */
 
-namespace Meygh\GithubApi\Commands;
+namespace Meygh\GithubApi\App\commands;
 
 
 use Meygh\GithubApi\Base\CommandBase;
 use Meygh\GithubApi\contracts\CommandInterface;
 
+
 /**
  * Command ListRepositories
- * @package Meygh\GithubApi\Commands
+ * @package Meygh\GithubApi\App\commands
  */
 class ListRepositories extends CommandBase
 {
-    public static $signature = 'list-repositories';
+    public static $signature = 'repositories';
 
     public function run(array $argv = []): CommandInterface
     {
