@@ -27,6 +27,7 @@
     "autoload": {
         "psr-4": {
             "Meygh\\GithubApi\\": "core/",
+            "Meygh\\GithubApi\\Base\\": "core/base",
             "Meygh\\GithubApi\\Libs\\": "core/libs",
             "Meygh\\GithubApi\\Commands\\": "core/commands",
             "Meygh\\GithubApi\\App\\": "app"

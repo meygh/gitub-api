@@ -24,7 +24,7 @@ class Kernel extends Singleton
     /** @var string of path to config file */
     protected $configFilePath = '';
     /** @var string of the name of default command if nothing was given to the kernel */
-    protected $defaultCommand = 'list';
+    protected $defaultCommand = 'list-commands';
 
     /** @var array list of commands' class namespaces */
     protected $commands = [
@@ -105,7 +105,7 @@ class Kernel extends Singleton
     public function getCommand(string $signature): CommandInterface
     {
         if ($command = $this->isValidCommand($signature)) {
-            return class_exists($signature);
+            return new $command();
         }
 
         throw new InvalidCommand($signature);
@@ -114,12 +114,14 @@ class Kernel extends Singleton
     /**
      * Checks if the given command is already exists or not.
      * @param string $signature
-     * @return bool
+     * @return false|string
      */
-    public function isValidCommand(string $signature): bool
+    public function isValidCommand(string $signature)
     {
-        if (array_get($this->commands, $signature)) {
-            return true;
+        $signature = array_get($this->commands, $signature);
+
+        if ($signature && class_exists($signature)) {
+            return $signature;
         }
 
         return false;
@@ -161,8 +163,23 @@ class Kernel extends Singleton
      */
     protected function loadCommands()
     {
+        $core_commands_dir = CORE_DIR . DS . 'commands';
+
+        if (is_dir($core_commands_dir) && is_readable($core_commands_dir)) {
+            $core_commands =  array_diff(scandir($core_commands_dir), ['.', '..']);
+
+            foreach ($core_commands as $command) {
+                $file_extension = substr(strrchr($command, '.'), 0);
+
+                if ($file_extension == '.php') {
+                    $command = rtrim($command, $file_extension);
+                    $this->commands[$command] = "\\Meygh\\GithubApi\\Commands\\$command";
+                }
+            }
+        }
+
         if ($external_commands = array_get($this->config, 'commands')) {
-            $this->commands = array_merge($this->commands, $external_commands);
+            $this->commands += $external_commands;
         }
 
         foreach ($this->commands as $key => $command) {

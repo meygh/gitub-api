@@ -13,6 +13,7 @@ return array(
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Meygh\\GithubApi\\Libs\\' => array($baseDir . '/core/libs'),
     'Meygh\\GithubApi\\Commands\\' => array($baseDir . '/core/commands'),
+    'Meygh\\GithubApi\\Base\\' => array($baseDir . '/core/base'),
     'Meygh\\GithubApi\\App\\' => array($baseDir . '/app'),
     'Meygh\\GithubApi\\' => array($baseDir . '/core'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),

@@ -7,6 +7,14 @@
  */
 
 /**
+ * @return \Meygh\GithubApi\Kernel
+ */
+function Kernel()
+{
+    return \Meygh\GithubApi\Kernel::getInstance();
+}
+
+/**
  * Return a specific array element without any exception.
  *
  * @param array $array
