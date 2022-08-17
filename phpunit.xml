@@ -1,0 +1,8 @@
+<phpunit colors="true">
+    <logging>
+        <testdoxHtml outputFile="tests/log/testdox.html"/>
+        <testdoxText outputFile="tests/log/testdox.txt"/>
+        <testdoxXml outputFile="tests/log/testdox.xml"/>
+        <text outputFile="tests/log/logfile.txt"/>
+    </logging>
+</phpunit>

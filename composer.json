@@ -1,0 +1,40 @@
+{
+    "name": "meygh/github-api",
+    "homepage": "https://github.com/meygh/gitub-api",
+    "description": "This package provides a solution to manage your github account and supports console commands",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Meisam Ghanbari",
+            "email": "m.q.php.98@gmail.com"
+        }
+    ],
+    "version": "1.0.0",
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "composer-plugin-api": "^2.1",
+        "phpunit/phpunit": "9.5.x-dev",
+        "php-curl-class/php-curl-class": "dev-master"
+    },
+    "scripts": {
+        "test": [
+            "phpunit --testdox"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "Meygh\\GithubApi\\": "core/",
+            "Meygh\\GithubApi\\Libs\\": "core/libs",
+            "Meygh\\GithubApi\\Commands\\": "core/commands",
+            "Meygh\\GithubApi\\App\\": "app"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
