@@ -11,7 +11,7 @@ namespace Meygh\GithubApi;
 
 use ErrorException;
 use Meygh\GithubApi\contracts\CommandInterface;
-use Meygh\GithubApi\exceptions\InvalidCommand;
+use Meygh\GithubApi\exceptions\InvalidCommandException;
 use Exception;
 
 
@@ -110,7 +110,7 @@ class Kernel extends Singleton
      * Return the object of requested command.
      * @param string $signature
      * @return CommandInterface
-     * @throws InvalidCommand
+     * @throws InvalidCommandException
      */
     public function getCommand(string $signature): CommandInterface
     {
@@ -118,7 +118,7 @@ class Kernel extends Singleton
             return new $command();
         }
 
-        throw new InvalidCommand($signature);
+        throw new InvalidCommandException($signature);
     }
 
     /**
