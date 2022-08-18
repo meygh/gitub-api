@@ -6,11 +6,12 @@
  * Time: 1:12 AM
  */
 
-namespace Meygh\GithubApi\App\api;
+namespace Meygh\GithubApi\App\API;
 
-use Meygh\GithubApi\Singleton;
 
-class Client extends Singleton
+use Meygh\GithubApi\Base\Component;
+
+class Client extends Component
 {
     /** @var string of the app token */
     protected $token;

@@ -15,6 +15,14 @@ function Kernel()
 }
 
 /**
+ * @return \Meygh\GithubApi\Service
+ */
+function Service()
+{
+    return \Meygh\GithubApi\Service::getInstance();
+}
+
+/**
  * Return a specific array element without any exception.
  *
  * @param array $array
@@ -34,7 +42,6 @@ function array_get(array &$array, $index, $default = null, $pop = false)
             unset($array[$index]);
         }
     }
-
 
     return $value;
 }

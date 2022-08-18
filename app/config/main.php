@@ -7,9 +7,12 @@
  */
 
 return [
-    'token' => '',
-
+    'token' => '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',
+    'auth_type' => \Meygh\GithubApi\App\api\AuthType::OAuth,
+    'services' => [
+        'GitHubClient' => '\\Meygh\\GithubApi\\App\\API\\Client'
+    ],
     'commands' => [
-        '\\Meygh\GithubApi\\App\\commands\\ListRepositories'
+        '\\Meygh\\GithubApi\\App\\commands\\ListRepositories'
     ]
 ];

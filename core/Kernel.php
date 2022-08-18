@@ -15,6 +15,10 @@ use Meygh\GithubApi\exceptions\InvalidCommandException;
 use Exception;
 
 
+/**
+ * Class Kernel
+ * @package Meygh\GithubApi
+ */
 class Kernel extends Singleton
 {
     /** @var string of path to config directory */
@@ -36,12 +40,14 @@ class Kernel extends Singleton
 
     /**
      * Console kernel initializer.
-     * @throws \ErrorException
+     * @throws ErrorException
+     * @throws \ReflectionException
      */
     public function init()
     {
-        $this->loadConfigurations();
-        $this->loadCommands();
+        $this->loadConfigurations()
+            ->loadServices()
+            ->loadCommands();
     }
 
     /**
@@ -139,7 +145,8 @@ class Kernel extends Singleton
 
     /**
      * Retrieve and load configuration parameters from config file.
-     * @throws \ErrorException
+     * @return $this
+     * @throws ErrorException
      */
     protected function loadConfigurations()
     {
@@ -166,10 +173,34 @@ class Kernel extends Singleton
 
             $this->config = $config;
         }
+
+        return $this;
+    }
+
+    /**
+     * Initialize Service container and load default services
+     * which are defined within config files.
+     * @return $this
+     * @throws ErrorException
+     * @throws \ReflectionException
+     */
+    protected function loadServices()
+    {
+        /** @var Service $Service */
+        $Service = Service::getInstance();
+
+        if ($services = (array) $this->getConfig('services')) {
+            foreach ($services as $service => $definition) {
+                $Service->set($service, $definition);
+            }
+        }
+
+        return $this;
     }
 
     /**
      * Validate and load all defined commands.
+     * @return $this
      */
     protected function loadCommands()
     {
@@ -203,5 +234,7 @@ class Kernel extends Singleton
         if (!$this->commands) {
             exit("There is no any commands defined yet!");
         }
+
+        return $this;
     }
 }

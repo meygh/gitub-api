@@ -30,7 +30,9 @@
             "Meygh\\GithubApi\\Base\\": "core/base",
             "Meygh\\GithubApi\\Libs\\": "core/libs",
             "Meygh\\GithubApi\\Commands\\": "core/commands",
-            "Meygh\\GithubApi\\App\\": "app"
+            "Meygh\\GithubApi\\App\\": "app",
+            "Meygh\\GithubApi\\API\\": "app/api",
+            "Meygh\\GithubApi\\API\\Actions\\": "app/api/actions"
         }
     },
     "autoload-dev": {
