@@ -40,6 +40,7 @@ class Kernel extends Singleton
 
     /**
      * Console kernel initializer.
+     * @return bool
      * @throws ErrorException
      * @throws \ReflectionException
      */
@@ -48,6 +49,8 @@ class Kernel extends Singleton
         $this->loadConfigurations()
             ->loadServices()
             ->loadCommands();
+
+        return true;
     }
 
     /**

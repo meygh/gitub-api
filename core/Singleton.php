@@ -22,16 +22,7 @@ abstract class Singleton
      * The Singleton's constructor should always be private to prevent direct.
      * construction calls with the `new` operator.
      */
-    final public function __construct() {
-        // Calls init() method of wrapper class if defined
-        if (method_exists($this, 'init')) {
-            try {
-                $this->init();
-            } catch (\Exception $e) {
-                exit($e->getMessage());
-            }
-        }
-    }
+    final public function __construct() {}
 
     /**
      * Singletons should not be cloneable.
@@ -63,8 +54,14 @@ abstract class Singleton
     public static function getInstance()
     {
         $cls = static::class;
+
         if (!isset(self::$instances[$cls])) {
             self::$instances[$cls] = new static();
+
+            // Calls init() method of wrapper class if defined
+            if (method_exists(self::$instances[$cls], 'init')) {
+                self::$instances[$cls]->init();
+            }
         }
 
         return self::$instances[$cls];
