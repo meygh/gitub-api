@@ -14,15 +14,10 @@ use Meygh\GithubApi\contracts\CommandInterface;
 /**
  * Class abstract of CommandBase
  */
-abstract class CommandBase implements CommandInterface
+abstract class CommandBase extends Component implements CommandInterface
 {
     /** @var string of the console signature */
     protected static $signature = '';
-
-    public function __construct()
-    {
-
-    }
 
     /**
      * @return string
