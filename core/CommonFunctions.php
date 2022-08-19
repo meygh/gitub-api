@@ -45,3 +45,36 @@ function array_get(array &$array, $index, $default = null, $pop = false)
 
     return $value;
 }
+
+if (!function_exists('dd')) {
+    /**
+     * Calls var_dump method and exit from rest of program.
+     * @param mixed ...$data
+     */
+    function dd(...$data)
+    {
+        echo '<pre>';
+        var_dump($data);
+        echo '</pre>';
+        die(1);
+    }
+}
+
+if (!function_exists('pd')) {
+    /**
+     * Calls print_r method inside <pre> tag.
+     * Exit from rest of program if $die = true.
+     * @param $data
+     * @param bool $die
+     */
+    function pd($data, $die = true): void
+    {
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+
+        if ($die) {
+            die(1);
+        }
+    }
+}

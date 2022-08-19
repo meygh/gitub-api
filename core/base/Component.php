@@ -29,6 +29,21 @@ abstract class Component
     protected $properties = [];
 
     /**
+     * Component constructor.
+     * The init() method will calls automatically for the first time.
+     */
+    public function __construct() {
+        // Calls init() method of wrapper class if defined
+        if ($this->hasMethod('init')) {
+            try {
+                $this->init();
+            } catch (\Exception $e) {
+                exit($e->getMessage());
+            }
+        }
+    }
+
+    /**
      * Set value to given property if it is exists and is not read-only.
      * @param string $name
      * @param $value
