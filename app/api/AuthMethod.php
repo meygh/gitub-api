@@ -13,7 +13,7 @@ namespace Meygh\GithubApi\App\api;
  * This is an enum class to determine how the client will authenticate user in GitHub.
  * @package Meygh\GithubApi\App\api
  */
-final class AuthType
+final class AuthMethod
 {
     /**
      * Authenticate using a combination of client_id and client_secret.
@@ -25,7 +25,13 @@ final class AuthType
      * Authenticate using a GitHub personal access token.
      * @var string
      */
-    public const OAuth = 'access_token';
+    public const OAuth = 'oauth';
+
+    /**
+     * Authenticate using a GitHub personal access token.
+     * @var string
+     */
+    public const ACCESS_TOKEN = 'access_token';
 
     /**
      * JWT authentication.

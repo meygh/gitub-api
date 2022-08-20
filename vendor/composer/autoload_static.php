@@ -35,6 +35,8 @@ class ComposerStaticInit4d2308b13d31c48590a46eeaa1e4f852
             'Meygh\\GithubApi\\Commands\\' => 25,
             'Meygh\\GithubApi\\Base\\' => 21,
             'Meygh\\GithubApi\\App\\' => 20,
+            'Meygh\\GithubApi\\API\\Actions\\' => 28,
+            'Meygh\\GithubApi\\API\\' => 20,
             'Meygh\\GithubApi\\' => 16,
         ),
         'D' => 
@@ -86,6 +88,14 @@ class ComposerStaticInit4d2308b13d31c48590a46eeaa1e4f852
         'Meygh\\GithubApi\\App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
+        ),
+        'Meygh\\GithubApi\\API\\Actions\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/api/actions',
+        ),
+        'Meygh\\GithubApi\\API\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/api',
         ),
         'Meygh\\GithubApi\\' => 
         array (

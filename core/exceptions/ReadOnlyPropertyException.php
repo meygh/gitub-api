@@ -21,7 +21,11 @@ class ReadOnlyPropertyException extends \Exception
      */
     public function __construct(string $name = "", int $code = 0, Throwable $previous = null)
     {
-        $message = "`$name` is a read-only property and you're not allowed to set a value!";
+        $trace = debug_backtrace();
+        // Get the class that is asking for who awoke it
+        $class = $trace[1]['class'];
+
+        $message = "`$name` is a read-only property of `$class`!";
 
         parent::__construct($message, $code, $previous);
     }

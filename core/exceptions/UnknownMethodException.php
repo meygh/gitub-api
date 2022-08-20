@@ -21,7 +21,11 @@ class UnknownMethodException extends \Exception
      */
     public function __construct(string $name = "", int $code = 0, Throwable $previous = null)
     {
-        $message = "Unknown method " . get_class($this) . "::{$name}() was called!";
+        $trace = debug_backtrace();
+        // Get the class that is asking for who awoke it
+        $class = $trace[1]['class'];
+
+        $message = "Unknown method " . $class . "::{$name}() was called!";
 
         parent::__construct($message, $code, $previous);
     }

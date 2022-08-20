@@ -21,7 +21,11 @@ class UnknownPropertyException extends \Exception
      */
     public function __construct(string $name = "", int $code = 0, Throwable $previous = null)
     {
-        $message = "property `$name` is not defined in " .get_class($this). "!";
+        $trace = debug_backtrace();
+        // Get the class that is asking for who awoke it
+        $class = $trace[1]['class'];
+
+        $message = "property `$name` is not defined in `" .$class. "`!";
 
         parent::__construct($message, $code, $previous);
     }

@@ -140,7 +140,7 @@ abstract class Component
      */
     public function __call(string $name, $arguments)
     {
-        throw new UnknownMethodException();
+        throw new UnknownMethodException($name);
     }
 
     /**

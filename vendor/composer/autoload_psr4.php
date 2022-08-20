@@ -15,6 +15,8 @@ return array(
     'Meygh\\GithubApi\\Commands\\' => array($baseDir . '/core/commands'),
     'Meygh\\GithubApi\\Base\\' => array($baseDir . '/core/base'),
     'Meygh\\GithubApi\\App\\' => array($baseDir . '/app'),
+    'Meygh\\GithubApi\\API\\Actions\\' => array($baseDir . '/app/api/actions'),
+    'Meygh\\GithubApi\\API\\' => array($baseDir . '/app/api'),
     'Meygh\\GithubApi\\' => array($baseDir . '/core'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
