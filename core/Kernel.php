@@ -105,8 +105,14 @@ class Kernel extends Singleton
 
             try {
                 if ($command = $this->getCommand($signature)) {
-                    $command->beforeRun();
-                    call_user_func([$command, "run"], array_values($argv));
+                    if ($command->hasMethod('setArguments')) {
+                        $command->setArguments($argv);
+                    }
+
+                    if ($command->beforeRun()) {
+                        call_user_func([$command, "run"], array_values($argv));
+                    }
+
                     $command->afterRun();
                 }
             } catch (Exception $e) {

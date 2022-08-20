@@ -20,7 +20,7 @@ use RuntimeException;
  * @package Meygh\GithubApi\App\API
  *
  * @method \Meygh\GithubApi\API\User\User user()
- * @method \Meygh\GithubApi\API\User\Repository repos()
+ * @method \Meygh\GithubApi\API\Repos\Repository repos()
  */
 class Client extends Api
 {

@@ -12,7 +12,7 @@ namespace Meygh\GithubApi\contracts;
 interface CommandInterface
 {
     public static function signature(): string;
-    public function beforeRun(): CommandInterface;
+    public function beforeRun(): bool;
     public function run(array $args=[]): CommandInterface;
-    public function afterRun(): CommandInterface;
+    public function afterRun(): bool;
 }

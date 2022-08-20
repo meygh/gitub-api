@@ -6,7 +6,7 @@
  * Time: 7:06 PM
  */
 
-namespace Meygh\GithubApi\API\User;
+namespace Meygh\GithubApi\API\Repos;
 
 
 use Meygh\GithubApi\API\GitHubApi;

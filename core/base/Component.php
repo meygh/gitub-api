@@ -37,7 +37,7 @@ abstract class Component
         if ($this->hasMethod('init')) {
             try {
                 $this->init();
-            } catch (\Exception $e) {
+            } catch (\RuntimeException $e) {
                 exit($e->getMessage());
             }
         }
@@ -140,7 +140,15 @@ abstract class Component
      */
     public function __call(string $name, $arguments)
     {
-        throw new UnknownMethodException($name);
+        if (!$this->hasMethod($name)) {
+            throw new UnknownMethodException($name);
+        }
+
+        $trace = debug_backtrace();
+        // Get the class that is asking for who awoke it
+        $class = $trace[1]['class'];
+
+        throw new \RuntimeException(sprintf('Method %s() is not a public method!', $class . '::' . $name));
     }
 
     /**

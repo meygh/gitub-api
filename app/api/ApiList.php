@@ -17,7 +17,7 @@ final class ApiList
 
     private static $list = [
         'user' => 'user\\User',
-        'repos' => 'user\\Repository'
+        'repos' => 'repos\\Repository'
     ];
 
     /**

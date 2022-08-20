@@ -26,4 +26,25 @@ class User extends GitHubApi
     {
         return $this->get('/user');
     }
+
+    /**
+     * Lists repositories that the authenticated user
+     * has explicit permission (:read, :write, or :admin) to access.
+     *
+     * @since Only show notifications updated after the given time.
+     * This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+     *
+     * @link https://docs.github.com/en/rest/repos/repos#list-repositories-for-the-authenticated-user
+     *
+     * @param int|null $since timestamp
+     * @return array list of users found
+     */
+    public function repos($since = null)
+    {
+        if (!is_int($since)) {
+            return $this->get('/user/repos');
+        }
+
+        return $this->get('/user/repos', ['since' => $since]);
+    }
 }

@@ -25,4 +25,25 @@ abstract class GitHubApi extends Api
         parent::__construct();
         $this->client = $client;
     }
+
+    /**
+     * @param string $url
+     * @param array $data
+     * @return mixed
+     */
+    public function get(string $url, array $data = [])
+    {
+        return $this->client->request->get($url, $data);
+    }
+
+    /**
+     * @param string $url
+     * @param array $data
+     * @param bool $redirection
+     * @return mixed
+     */
+    public function post(string $url, array $data = [], bool $redirection = false)
+    {
+        return $this->client->request->post($url, $data, $redirection);
+    }
 }
