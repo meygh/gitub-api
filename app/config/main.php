@@ -20,5 +20,7 @@ return [
     'commands' => [
         '\\Meygh\\GithubApi\\App\\Commands\\PublicRepositories',
         '\\Meygh\\GithubApi\\App\\Commands\\PrivateRepositories',
+        '\\Meygh\\GithubApi\\App\\Commands\\CreateRepository',
+        '\\Meygh\\GithubApi\\App\\Commands\\DeleteRepository',
     ]
 ];

@@ -9,34 +9,38 @@
 namespace Meygh\GithubApi\App\Commands;
 
 
-use Meygh\GithubApi\Base\CommandBase;
 use Meygh\GithubApi\contracts\CommandInterface;
 
 
 /**
  * Command ListRepositories
+ * @example run.php user-repos [since:23434]
+ *
  * @package Meygh\GithubApi\App\commands
  */
-class PrivateRepositories extends CommandBase
+class PrivateRepositories extends GitHubCommandBase
 {
-    /** @var \Meygh\GithubApi\API\Client $client */
-    protected $gitHubClient;
-
     /** @var string */
     public static $signature = 'user-repos';
 
-    public function init()
-    {
-        $this->gitHubClient = Service()->GitHubClient;
-    }
-
     public function run(array $args = []): CommandInterface
     {
-        echo "List of your github repositories.\n\n";
+        echo "\n\n\n> List of your github repositories.\n\n";
 
-        $allRepositories = $this->gitHubClient->user()->repos($this->arguments('since'));
+        $result = $this->gitHubClient->user()->repos($this->arguments('since'));
 
-        echo count($allRepositories);
+        if ($this->gitHubClient->user()->validateResult())  {
+            foreach ($result as $num => $repo) {
+                echo ($num + 1) . ") {$repo->name} (Forks: " . ($repo->fork ?: 0) . ")\n";
+                echo "Description: " . ($repo->description ?? '(Not Set)') . "\n\n";
+                echo "Repository: {$repo->html_url}\n";
+                echo "\n---------------------\n\n";
+            }
+
+            return $this;
+        }
+
+        $this->renderErrors($this->gitHubClient->user()->getErrors());
 
         return $this;
     }

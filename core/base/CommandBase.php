@@ -23,6 +23,21 @@ abstract class CommandBase extends Component implements CommandInterface
     private $arguments = [];
 
     /**
+     * @return string
+     */
+    public static function signature(): string
+    {
+        if ($sign = static::$signature) {
+            return $sign;
+        }
+
+        $class_name = explode('\\', strtolower(get_called_class()));
+        static::$signature = $class_name[(count($class_name) - 1)];
+
+        return static::$signature;
+    }
+
+    /**
      * Parse and sets commands arguments
      * @param array $args
      */
@@ -67,30 +82,52 @@ abstract class CommandBase extends Component implements CommandInterface
     }
 
     /**
-     * @return string
+     * Renders and displays errors on the screen
+     * @param array $errors
      */
-    public static function signature(): string
+    public function renderErrors(array $errors): void
     {
-        if ($sign = static::$signature) {
-            return $sign;
+        if (!$errors) {
+            return;
         }
 
-        $class_name = explode('\\', strtolower(get_called_class()));
-        static::$signature = $class_name[(count($class_name) - 1)];
+        echo "\n\n\n===========================================\n\nError!\n\n";
 
-        return static::$signature;
+        if ($message = array_get($errors, 'message')) {
+            echo "{$message}\n";
+        }
+
+        if ($errorsInfo = array_get($errors, 'errors')) {
+            foreach ($errorsInfo as $errorInfo) {
+                echo " * {$errorInfo}\n";
+            }
+        }
+
+        echo "\n===========================================\n\n\n\n";
     }
 
+    /**
+     * @return string
+     */
     public function getRunningPlace()
     {
         return getcwd();
     }
 
+    /**
+     * This event handler will be emmit before call the main run() method.
+     * if returns false the main run() method never be launched!
+     * @return bool
+     */
     public function beforeRun(): bool
     {
         return true;
     }
 
+    /**
+     * This event handler will be emit after call the run() method
+     * @return bool
+     */
     public function afterRun(): bool
     {
         return true;

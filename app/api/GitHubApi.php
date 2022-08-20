@@ -22,8 +22,52 @@ abstract class GitHubApi extends Api
 
     public function __construct(Client $client)
     {
-        parent::__construct();
-        $this->client = $client;
+        if (!is_a($this->client, '\\Meygh\\GithubApi\\API')) {
+            parent::__construct();
+            $this->client = $client;
+        }
+    }
+
+    /**
+     * Sets Content-Type for the request
+     * @param bool $json
+     */
+    public function requestType(bool $json = false)
+    {
+        $type = 'application/x-www-form-urlencoded';
+
+        if ($json) {
+            $type = 'application/json';
+        }
+
+        $this->client->header('Content-Type', $type);
+    }
+
+    /**
+     * Checks and parse errors if an API request has been failed.
+     * @return bool
+     */
+    public function validateResult()
+    {
+        $result = $this->client->request->response;
+
+        if (!$result) {
+            $this->addErrorMessage("Server connection has been failed!");
+
+            return false;
+        } elseif (isset($result->message)) {
+            $this->addErrorMessage($result->message);
+
+            if (isset($result->errors)) {
+                foreach ($result->errors as $errorInfo) {
+                    $this->addErrorInfo((array) $errorInfo);
+                }
+            }
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -45,5 +89,16 @@ abstract class GitHubApi extends Api
     public function post(string $url, array $data = [], bool $redirection = false)
     {
         return $this->client->request->post($url, $data, $redirection);
+    }
+
+    /**
+     * @param string $url
+     * @param array $query_parameters
+     * @param array $data
+     * @return mixed
+     */
+    public function delete(string $url, array $query_parameters = [], array $data = [])
+    {
+        return $this->client->request->delete($url, $query_parameters, $data);
     }
 }

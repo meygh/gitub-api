@@ -47,4 +47,64 @@ class User extends GitHubApi
 
         return $this->get('/user/repos', ['since' => $since]);
     }
+
+    /**
+     * Creates a repository for the authenticated user.
+     * Name parameter is required.
+     *
+     * @link https://docs.github.com/en/rest/repos/repos#create-a-repository-for-the-authenticated-user
+     *
+     * @param array $parameters
+     * @return mixed
+     */
+    public function create(array $parameters)
+    {
+        if (!isset($parameters['name'])) {
+            exit("Name of repository is needed to create it!");
+        }
+
+        $this->requestType(true);
+
+        $result = $this->post('/user/repos', $parameters);
+        $this->validateResult();
+
+        return $result;
+    }
+
+    /**
+     * Deletes a repository of the authenticated user
+     *
+     * Required parameter: repo:your_repository_name
+     * @link https://docs.github.com/en/rest/repos/repos#delete-a-repository
+     *
+     * @param array $parameters
+     * @return mixed
+     */
+    public function deleteRepo(array $parameters)
+    {
+        $user = $this->currentUser();
+
+        if (!$this->validateResult()) {
+            $this->addErrorMessage('Authentication is failed!');
+
+            return false;
+        }
+
+        if (!isset($parameters['repo'])) {
+            $this->addErrorMessage('Name of your repository is needed to delete it!');
+
+            return false;
+        }
+
+        $url = '/repos/' . $user->login . '/' . $parameters['repo'];
+
+        $this->requestType(true);
+        $result = $this->delete($url);
+
+        if (!empty($result)) {
+            $this->validateResult();
+        }
+
+        return $result;
+    }
 }

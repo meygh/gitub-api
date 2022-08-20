@@ -31,10 +31,10 @@ class Repository extends GitHubApi
     public function all($since = null)
     {
         if (!is_int($since)) {
-            return $this->get('/repositories');
+            return $this->get('repositories');
         }
 
-        return $this->get('/repositories', ['since' => $since]);
+        return $this->get('repositories', ['since' => $since]);
     }
 
     /**

@@ -22,6 +22,9 @@ class Api extends Component
     /** @var string  */
     protected $baseUrl = '';
 
+    /** @var array */
+    protected static $errors = [];
+
     /**
      * @throws \ErrorException
      */
@@ -52,6 +55,48 @@ class Api extends Component
         $this->headers[$parameter] = $value;
 
         return $this;
+    }
+
+    /**
+     * Adds an error message into $errors property
+     * @param string $error
+     */
+    public function addErrorMessage(string $error)
+    {
+        self::$errors['message'] = $error;
+    }
+
+    /**
+     * Adds and string error with a specific key into $errors property
+     * @param string $key
+     * @param string $error
+     */
+    public function addError(string $key, string $error)
+    {
+        self::$errors[$key] = $error;
+    }
+
+    /**
+     * Adds array of some details of error as index of 'errors'.
+     * @param $error
+     */
+    public function addErrorInfo($error)
+    {
+        if ($field = array_get($error, 'field')) {
+            self::$errors['errors'][] = $error['message'];
+        } else {
+            self::$errors['errors'][] = $error;
+        }
+    }
+
+    /**
+     * Returns all defined errors as an array
+     * this array may contains 'message' and 'errors' indexes.
+     * @return array
+     */
+    public function getErrors()
+    {
+        return self::$errors;
     }
 
     /**
