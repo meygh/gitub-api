@@ -27,9 +27,9 @@ class PublicRepositories extends GitHubCommandBase
     {
         echo "\n\n\n> List of your github repositories.\n\n";
 
-        $result = $this->gitHubClient->repos()->all($this->arguments('since'));
+        $result = $this->apiClient->repos()->all($this->arguments('since'));
 
-        if ($this->gitHubClient->repos()->validateResult())  {
+        if ($this->apiClient->repos()->validateResult())  {
             foreach ($result as $num => $repo) {
                 echo ($num + 1) . ") {$repo->name} (Forks: " . ($repo->fork ?: 0) . ")\n";
                 echo "Description: " . ($repo->description ?? '(Not Set)') . "\n\n";
@@ -40,7 +40,7 @@ class PublicRepositories extends GitHubCommandBase
             return $this;
         }
 
-        $this->renderErrors($this->gitHubClient->repos()->getErrors());
+        $this->renderErrors($this->apiClient->repos()->getErrors());
 
         return $this;
     }

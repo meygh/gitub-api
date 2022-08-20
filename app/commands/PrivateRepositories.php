@@ -27,9 +27,9 @@ class PrivateRepositories extends GitHubCommandBase
     {
         echo "\n\n\n> List of your github repositories.\n\n";
 
-        $result = $this->gitHubClient->user()->repos($this->arguments('since'));
+        $result = $this->apiClient->user()->repos($this->arguments('since'));
 
-        if ($this->gitHubClient->user()->validateResult())  {
+        if ($this->apiClient->user()->validateResult())  {
             foreach ($result as $num => $repo) {
                 echo ($num + 1) . ") {$repo->name} (Forks: " . ($repo->fork ?: 0) . ")\n";
                 echo "Description: " . ($repo->description ?? '(Not Set)') . "\n\n";
@@ -40,7 +40,7 @@ class PrivateRepositories extends GitHubCommandBase
             return $this;
         }
 
-        $this->renderErrors($this->gitHubClient->user()->getErrors());
+        $this->renderErrors($this->apiClient->user()->getErrors());
 
         return $this;
     }
