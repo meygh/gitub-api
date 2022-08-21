@@ -14,12 +14,13 @@ return [
     'authMethod' => \Meygh\GithubApi\App\api\AuthMethod::ACCESS_TOKEN,
 
     'services' => [
+        'GitHubClient' => '\\Meygh\\GithubApi\\API\\Client',
+
         'Router' => [
             'class' => '\\Meygh\\GithubApi\\Base\\Router',
 
             'controllerPath' => 'app/controllers',
             'controllerNamespace' => '\\Meygh\GithubApi\App\\Controllers\\'
         ],
-        'GitHubClient' => '\\Meygh\\GithubApi\\API\\Client'
     ]
 ];

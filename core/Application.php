@@ -117,6 +117,7 @@ class Application extends Singleton
 
         if ($services = (array) $this->getConfig('services')) {
             foreach ($services as $service => $definition) {
+
                 $Service->set($service, $definition);
             }
         }

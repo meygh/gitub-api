@@ -18,20 +18,27 @@ use Meygh\GithubApi\Contracts\iController;
  */
 class Controller implements iController
 {
+    /** @var Router */
+    protected $router;
+
+    /** @var string */
+    protected $controllerName;
+
+    /** @var string */
+    protected $controllerRoute;
+
     /**
      * @var string of current controller extends of base\controller
      */
-
     public $controller;
+
+    /** @var string of action name */
+    public $actionName;
+
     /**
      * @var string name of action method in current controller
      */
     public $action;
-
-
-    protected $router;
-    protected $controllerName;
-    protected $controllerRoute;
 
     /**
      * Controller constructor.
@@ -46,6 +53,7 @@ class Controller implements iController
         $this->controllerRoute = camel_to_dashed($controller);
         $this->controllerName = $controller;
         $this->controller = static::class;
+        $this->actionName = $action;
         $this->action = 'action' . ucfirst($action);
 
         if (!method_exists($this->controller, $this->action)) {
@@ -61,6 +69,11 @@ class Controller implements iController
 
     }
 
+    public function filterVerbs()
+    {
+        return [];
+    }
+
     public function getControllerName()
     {
         return $this->controllerName;
@@ -71,13 +84,22 @@ class Controller implements iController
         return $this->controllerRoute;
     }
 
+    public function getActionName()
+    {
+        return $this->actionName;
+    }
+
     /**
      * Doing something or validate something before run action method.
      * @return bool
      */
     public function beforeAction(): bool
     {
-        return true;
+        if ($this->validateRoute()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -86,6 +108,21 @@ class Controller implements iController
     public function afterAction()
     {
 
+    }
+
+    protected function validateRoute()
+    {
+        $filters = $this->filterVerbs();
+
+        if ($methods = (array) array_get($filters, $this->getActionName())) {
+            if (in_array($_SERVER['REQUEST_METHOD'], $methods)) {
+                return true;
+            }
+
+            throw new \RuntimeException('You are not allowed to perform this action');
+        }
+
+        return true;
     }
 
     /**
