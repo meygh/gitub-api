@@ -150,7 +150,7 @@ class Service extends Singleton
         }
 
         if (!class_exists($concrete)) {
-            throw new ReflectionException("Class `$concrete` is not exists!");
+            throw new ReflectionException("Class `$concrete` does not exists!");
         }
 
         $reflector = new ReflectionClass($concrete);
@@ -190,7 +190,7 @@ class Service extends Singleton
             }
 
             // Calls init() method of wrapper class if defined
-            if ($instance->hasMethod('init')) {
+            if ($instance->hasMethod('init') && $reflector->getMethod('init')->isPublic()) {
                 try {
                     $instance->init();
                 } catch (\RuntimeException $e) {

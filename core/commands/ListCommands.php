@@ -25,7 +25,7 @@ class ListCommands extends CommandBase
         echo "\n----------------------------------------\n";
         echo "\n** Welcome to GitHub API console **\n\n\n";
 
-        if ($commands_list = Kernel()->getCommandList()) {
+        if ($commands_list = Console()->getCommandList()) {
             echo "You can use the following commands on this CLI application:\n";
 
             foreach ($commands_list as $command) {

@@ -7,11 +7,19 @@
  */
 
 /**
- * @return \Meygh\GithubApi\Kernel
+ * @return \Meygh\GithubApi\Console
  */
-function Kernel()
+function Console()
 {
-    return \Meygh\GithubApi\Kernel::getInstance();
+    return \Meygh\GithubApi\Console::getInstance();
+}
+
+/**
+ * @return \Meygh\GithubApi\Application
+ */
+function App()
+{
+    return \Meygh\GithubApi\Application::getInstance();
 }
 
 /**
@@ -20,6 +28,14 @@ function Kernel()
 function Service()
 {
     return \Meygh\GithubApi\Service::getInstance();
+}
+
+/**
+ * @return \Meygh\GithubApi\Base\Route
+ */
+function Route()
+{
+    return Service()->Route;
 }
 
 /**

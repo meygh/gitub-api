@@ -19,7 +19,7 @@ use Exception;
  * Class Kernel
  * @package Meygh\GithubApi
  */
-class Kernel extends Singleton
+class Console extends Singleton
 {
     /** @var string of path to config directory */
     protected $configDir = 'config';

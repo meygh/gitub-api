@@ -37,12 +37,12 @@ class Client extends Api
      * Initialize GitHub API client.
      * @throws \ErrorException
      */
-    protected function init()
+    public function init()
     {
         parent::init();
 
-        $this->authMethod = Kernel()->getConfig('authMethod');
-        $this->token = Kernel()->getConfig('token');
+        $this->authMethod = Console()->getConfig('authMethod');
+        $this->token = Console()->getConfig('token');
 
         $this->header('Accept', 'application/vnd.github+json');
         $this->authenticate();

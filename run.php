@@ -17,4 +17,4 @@ define('APP_DIR', ROOT_DIR . 'app' . DS);
 
 require_once CORE_DIR . 'Helpers.php';
 
-\Meygh\GithubApi\Kernel::getInstance()->run();
+\Meygh\GithubApi\Console::getInstance()->run();

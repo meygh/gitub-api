@@ -22,6 +22,18 @@ abstract class CommandBase extends Component implements iCommand
     /** @var array of given arguments while running the command */
     private $arguments = [];
 
+    public function __construct(array $params = [])
+    {
+        parent::__construct($params);
+
+        $this->init();
+    }
+
+    public function init()
+    {
+
+    }
+
     /**
      * @return string
      */

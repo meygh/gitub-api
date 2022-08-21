@@ -28,9 +28,9 @@ class Api extends Component
     /**
      * @throws \ErrorException
      */
-    protected function init()
+    public function init()
     {
-        $this->baseUrl = Kernel()->getConfig('baseUrl');
+        $this->baseUrl = Console()->getConfig('baseUrl');
         $this->request = new Curl($this->baseUrl);
     }
 
