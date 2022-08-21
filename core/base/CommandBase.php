@@ -8,13 +8,13 @@
 namespace Meygh\GithubApi\Base;
 
 
-use Meygh\GithubApi\contracts\CommandInterface;
+use Meygh\GithubApi\Contracts\iCommand;
 
 
 /**
  * Class abstract of CommandBase
  */
-abstract class CommandBase extends Component implements CommandInterface
+abstract class CommandBase extends Component implements iCommand
 {
     /** @var string of the console signature */
     protected static $signature = '';
@@ -137,7 +137,7 @@ abstract class CommandBase extends Component implements CommandInterface
      * Handle the action of related command class.
      *
      * @param array $args
-     * @return CommandInterface
+     * @return iCommand
      */
-    abstract public function run(array $args=[]): CommandInterface;
+    abstract public function run(array $args=[]): iCommand;
 }

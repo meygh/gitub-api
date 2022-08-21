@@ -9,7 +9,7 @@
 namespace Meygh\GithubApi\App\Commands;
 
 
-use Meygh\GithubApi\contracts\CommandInterface;
+use Meygh\GithubApi\Contracts\iCommand;
 
 
 /**
@@ -26,7 +26,7 @@ class DeleteRepository extends GitHubCommandBase
     /** @var string */
     public static $signature = 'del-repo';
 
-    public function run(array $args = []): CommandInterface
+    public function run(array $args = []): iCommand
     {
         echo "\n\n\n> Delete a new repository from your GitHub account.\n\n";
 

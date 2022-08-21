@@ -9,7 +9,7 @@
 namespace Meygh\GithubApi\App\Commands;
 
 
-use Meygh\GithubApi\contracts\CommandInterface;
+use Meygh\GithubApi\Contracts\iCommand;
 
 
 /**
@@ -23,7 +23,7 @@ class PrivateRepositories extends GitHubCommandBase
     /** @var string */
     public static $signature = 'user-repos';
 
-    public function run(array $args = []): CommandInterface
+    public function run(array $args = []): iCommand
     {
         echo "\n\n\n> List of your github repositories.\n\n";
 

@@ -10,7 +10,7 @@ namespace Meygh\GithubApi;
 
 
 use ErrorException;
-use Meygh\GithubApi\contracts\CommandInterface;
+use Meygh\GithubApi\Contracts\iCommand;
 use Meygh\GithubApi\exceptions\InvalidCommandException;
 use Exception;
 
@@ -24,7 +24,7 @@ class Kernel extends Singleton
     /** @var string of path to config directory */
     protected $configDir = 'config';
     /** @var string name of config file */
-    protected $configFileName = 'main';
+    protected $configFileName = 'console';
     /** @var string of path to config file */
     protected $configFilePath = '';
     /** @var string of the name of default command if nothing was given to the kernel */
@@ -124,10 +124,10 @@ class Kernel extends Singleton
     /**
      * Return the object of requested command.
      * @param string $signature
-     * @return CommandInterface
+     * @return iCommand
      * @throws InvalidCommandException
      */
-    public function getCommand(string $signature): CommandInterface
+    public function getCommand(string $signature): iCommand
     {
         if ($command = $this->isValidCommand($signature)) {
             return new $command();

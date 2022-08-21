@@ -31,14 +31,14 @@ abstract class Component
     /**
      * Component constructor.
      * The init() method will calls automatically for the first time.
+     * @param array $params
      */
-    public function __construct() {
-        // Calls init() method of wrapper class if defined
-        if ($this->hasMethod('init')) {
-            try {
-                $this->init();
-            } catch (\RuntimeException $e) {
-                exit($e->getMessage());
+    public function __construct($params = []) {
+        $params = (array) $params;
+
+        if ($params) {
+            foreach ($params as $param => $value) {
+                $this->{$param} = $value;
             }
         }
     }

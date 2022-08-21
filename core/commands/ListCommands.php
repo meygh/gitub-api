@@ -10,7 +10,7 @@ namespace Meygh\GithubApi\Commands;
 
 
 use Meygh\GithubApi\Base\CommandBase;
-use Meygh\GithubApi\contracts\CommandInterface;
+use Meygh\GithubApi\Contracts\iCommand;
 
 /**
  * Command ListRepositories
@@ -20,7 +20,7 @@ class ListCommands extends CommandBase
 {
     public static $signature = 'list-commands';
 
-    public function run(array $argv = []): CommandInterface
+    public function run(array $argv = []): iCommand
     {
         echo "\n----------------------------------------\n";
         echo "\n** Welcome to GitHub API console **\n\n\n";

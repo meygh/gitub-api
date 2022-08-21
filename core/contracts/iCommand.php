@@ -6,13 +6,13 @@
  * Time: 7:44 PM
  */
 
-namespace Meygh\GithubApi\contracts;
+namespace Meygh\GithubApi\Contracts;
 
 
-interface CommandInterface
+interface iCommand extends iComponent
 {
     public static function signature(): string;
     public function beforeRun(): bool;
-    public function run(array $args=[]): CommandInterface;
+    public function run(array $args=[]): iCommand;
     public function afterRun(): bool;
 }

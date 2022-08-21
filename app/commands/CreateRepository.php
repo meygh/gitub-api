@@ -9,7 +9,7 @@
 namespace Meygh\GithubApi\App\Commands;
 
 
-use Meygh\GithubApi\contracts\CommandInterface;
+use Meygh\GithubApi\Contracts\iCommand;
 
 
 /**
@@ -29,7 +29,7 @@ class CreateRepository extends GitHubCommandBase
     /** @var string */
     public static $signature = 'create-repo';
 
-    public function run(array $args = []): CommandInterface
+    public function run(array $args = []): iCommand
     {
         echo "\n\n\n> Create a new repository in your GitHub account.\n\n";
 

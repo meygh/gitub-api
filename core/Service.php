@@ -98,8 +98,8 @@ class Service extends Singleton
 
         $this->instances[$name] = [
             'class' => $class,
-            'singleton' => false,
-            'params' => $params
+            'params' => $params,
+            'singleton' => false
         ];
 
         return $this->get($name);
@@ -123,11 +123,13 @@ class Service extends Singleton
 
             $name = substr(strrchr($definition, '\\'), 0);
 
-            $this->set($name, $definition);
+            $this->set($name, $definition, $params);
         }
 
-        if ($concrete = array_get($this->instances[$definition], 'class')) {
-            return $this->resolve($concrete, array_get($this->instances[$definition], 'params', $params));
+        $concreteInstance = $this->instances[$definition];
+
+        if ($concrete = array_get($concreteInstance, 'class')) {
+            return $this->resolve($concrete, array_get($concreteInstance, 'params', $params));
         }
 
         throw new ErrorException('Concrete class namespace is invalid!');
@@ -163,9 +165,9 @@ class Service extends Singleton
             return $reflector->newInstance();
         }
 
-        $implements = class_implements($concrete);
+        $implements = class_implements($concrete, true);
 
-        if (!isset($implements['core\contracts\iComponent'])) {
+        if (!isset($implements['\\Meygh\\GithubApi\\Contracts\iComponent'])) {
             // Get parameters of concrete constructor
             $constructor_params = $constructor->getParameters();
 
@@ -179,7 +181,24 @@ class Service extends Singleton
 
             $parameters = $this->getDependencies($constructor_params);
 
-            return $reflector->newInstanceArgs($parameters);
+            $instance = $reflector->newInstanceArgs($parameters);
+
+            if (!empty($params)) {
+                foreach ($params as $param => $value) {
+                    $instance->{$param} = $value;
+                }
+            }
+
+            // Calls init() method of wrapper class if defined
+            if ($instance->hasMethod('init')) {
+                try {
+                    $instance->init();
+                } catch (\RuntimeException $e) {
+                    exit($e->getMessage());
+                }
+            }
+
+            return $instance;
         }
 
         return $reflector->newInstanceArgs([$params]);
@@ -187,20 +206,18 @@ class Service extends Singleton
 
     /**
      * Fetches dependencies of requested instance.
-     * @param array $parameters
+     * @param array $arguments
      * @return array
      * @throws ErrorException
      * @throws ReflectionException
      */
-    public function getDependencies(array $parameters): array
+    public function getDependencies(array $arguments): array
     {
         $dependencies = [];
 
-        foreach ($parameters as $key => $parameter) {
-            if (is_object($parameter) && $dependency = $parameter->getClass()) {
-                $dependencies[$key] = $this->get($dependency->name);
-            } else {
-                $dependencies[$key] = $parameter;
+        foreach ($arguments as $key => $argument) {
+            if ($type = $argument->getType()) {
+                $dependencies[$argument->name] = $type->getName();
             }
         }
 
