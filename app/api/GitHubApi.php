@@ -22,7 +22,7 @@ abstract class GitHubApi extends Api
 
     public function __construct(Client $client)
     {
-        if (!is_a($this->client, '\\Meygh\\GithubApi\\API')) {
+        if (!$this->client instanceof Api) {
             parent::__construct();
             $this->client = $client;
         }
