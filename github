@@ -1,0 +1,4 @@
+#!php -q
+<?php
+
+require_once dirname(__FILE__) . '/github.php';

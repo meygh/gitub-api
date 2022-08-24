@@ -44,34 +44,42 @@ You only need to put your `Personal Access Token` in config files:
 
 * Web Config: `/app/config/web.php`
 
+Make github and/or github.php executable:
+```bash
+chmod 755 github
+chmod 755 github.php
+```
 
 ## Console commands
 
 List of all exists commands
 
 ```php
-php run.php
+./github
 ```
-
+or
+```php
+./github.php
+```
 
 List of all authenticated user's repositories
 
 ```php
-php run.php user-repos [since:UNIX_TIMESTAMP]
+./github user-repos [since:UNIX_TIMESTAMP]
 ```
 
 
 Create a new repository For authenticated user
 
 ```php
-php run.php create-repo name:YOUR-REPOSITORY-NAME
+./github create-repo name:YOUR-REPOSITORY-NAME
 ```
 
 
 Delete a new repository from authenticated user
 
 ```php
-php run.php del-repo repo:YOUR-REPOSITORY-NAME
+./github del-repo repo:YOUR-REPOSITORY-NAME
 ```
 
 
